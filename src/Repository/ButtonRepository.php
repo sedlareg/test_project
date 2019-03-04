@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Button;
+use App\Entity\Customer;
+use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +21,45 @@ class ButtonRepository extends ServiceEntityRepository
         parent::__construct($registry, Button::class);
     }
 
-    // /**
-    //  * @return Button[] Returns an array of Button objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param Customer $customer
+     * @return Button[]
+     */
+    public function findByCustomer(Customer $customer): array
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.customer = :customer')
+            ->setParameter('customer', $customer)
             ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Button
+    /**
+     * @param Product $product
+     * @return Button[]
+     */
+    public function findByProduct(Product $product): array
     {
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('b.product_id = :product')
+            ->setParameter('product', $product)
+            ->orderBy('b.id', 'ASC')
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getResult();
     }
-    */
+
+    /**
+     * @param string $buttonName
+     * @return Button|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findOneByName(string $buttonName): ?Button
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.name = :buttonName')
+            ->setParameter('buttonName', $buttonName)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

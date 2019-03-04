@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,25 +24,10 @@ class Customer
     private $name;
 
     /**
-     * @var Button[]
-     * One customer has many buttons. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Button", mappedBy="customer")
-     */
-    private $buttons;
-
-    /**
      * @var ExternalSale
-     * @ORM\ManyToOne(targetEntity="ExternalSale", inversedBy="customers")
+     * @ORM\ManyToOne(targetEntity="ExternalSale")
      */
     private $externalSale;
-
-    /**
-     * Customer constructor.
-     */
-    public function __construct()
-    {
-        $this->buttons = new ArrayCollection();
-    }
 
     /**
      * @return int|null
@@ -68,25 +52,6 @@ class Customer
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Button[]|ArrayCollection
-     */
-    public function getButtons()
-    {
-        return $this->buttons;
-    }
-
-    /**
-     * @param $buttons
-     * @return Customer
-     */
-    public function setButtons($buttons): self
-    {
-        $this->buttons = $buttons;
 
         return $this;
     }

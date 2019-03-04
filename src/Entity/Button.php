@@ -25,19 +25,13 @@ class Button
 
     /**
      * @var Customer
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="buttons")
-     *
-     * Diese Zeile kann auch entfallen, weil das die Default Values sind
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Customer")
      */
     private $customer;
 
     /**
      * @var Product
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="buttons")
-     *
-     * Diese Zeile kann auch entfallen, weil das die Default Values sind
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Product")
      */
     private $product;
 

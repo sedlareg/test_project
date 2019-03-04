@@ -25,21 +25,6 @@ class ExternalSale
     private $name;
 
     /**
-     * @var Customer[]
-     * One ExternalSale can have many customer. This is the inverse side.
-     * @ORM\OneToMany(targetEntity="Customer", mappedBy="externalSale")
-     */
-    private $customers;
-
-    /**
-     * ExternalSale constructor.
-     */
-    public function __construct()
-    {
-        $this->customers = new ArrayCollection();
-    }
-
-    /**
      * @return int|null
      */
     public function getId(): ?int
@@ -62,25 +47,6 @@ class ExternalSale
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Customer[]|ArrayCollection
-     */
-    public function getCustomers()
-    {
-        return $this->customers;
-    }
-
-    /**
-     * @param $customers
-     * @return ExternalSale
-     */
-    public function setCustomers($customers): self
-    {
-        $this->customers = $customers;
 
         return $this;
     }

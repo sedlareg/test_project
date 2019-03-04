@@ -36,15 +36,17 @@ class CustomerRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Customer
+    /**
+     * @param $id
+     * @return Customer|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findById($id): ?Customer
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
 }
