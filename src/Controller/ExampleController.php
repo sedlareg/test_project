@@ -40,9 +40,9 @@ class ExampleController
     /**
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function indexAction()
+    public function indexAction($id)
     {
-        $customer = $this->customerRepository->findById(1);
+        $customer = $this->customerRepository->findById($id);
         $buttons = $this->buttonRepository->findByCustomer($customer);
 
         $encoders = [new JsonEncoder()];
