@@ -2,14 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Button;
 use App\Repository\ButtonRepository;
 use App\Repository\CustomerRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
@@ -38,6 +34,7 @@ class ExampleController
     }
 
     /**
+     * @Template()
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function indexAction($id)
@@ -45,10 +42,22 @@ class ExampleController
         $customer = $this->customerRepository->findById($id);
         $buttons = $this->buttonRepository->findByCustomer($customer);
 
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-        $serializer = new Serializer($normalizers, $encoders);
+//        $encoders = [new JsonEncoder()];
+//        $normalizers = [new ObjectNormalizer()];
+//        $serializer = new Serializer($normalizers, $encoders);
 
-        return new Response($serializer->serialize($buttons, 'json'));
+        /*return [
+            'buttons' => $serializer->serialize(
+                $buttons,
+                'json',
+                [
+                    'circular_reference_limit' => 1,
+                    'circular_reference_handler' => function ($object) {
+                        return $object->getId();
+                    }
+                ]
+            )
+        ];*/
+        return ['buttons' => $buttons];
     }
 }

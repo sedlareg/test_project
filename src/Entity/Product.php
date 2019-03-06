@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -23,6 +24,21 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var Button[]|ArrayCollection
+     * One customer has many buttons. This is the inverse side.
+     * @ORM\OneToMany(targetEntity="Button", mappedBy="product", fetch="EXTRA_LAZY")
+     */
+    private $buttons;
+
+    /**
+     * Customer constructor.
+     */
+    public function __construct()
+    {
+        $this->buttons = new ArrayCollection();
+    }
 
     /**
      * @return int|null
@@ -47,6 +63,25 @@ class Product
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Button[]|PersistentCollection
+     */
+    public function getButtons()
+    {
+        return $this->buttons;
+    }
+
+    /**
+     * @param Button[] $buttons
+     * @return Product
+     */
+    public function setButtons(array $buttons): self
+    {
+        $this->buttons = $buttons;
 
         return $this;
     }

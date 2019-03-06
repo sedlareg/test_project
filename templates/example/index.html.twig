@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% dump(buttons) %}
+    {% for button in buttons%}
+        <h2>{{ button.name }}</h2>
+        <ul>
+            <li>
+                ID: {{ button.id }}
+            </li>
+            <li>
+                Customer: {{ button.customer.name }}
+                <ul>
+                    <li>ID: {{ button.customer.id }}</li>
+                    <li>
+                        ExternalSale: {{ button.customer.externalSale.name }}
+                        <ul>
+                            {% for custExternalSale in button.customer.externalSale.customers %}
+                                <li>{{ custExternalSale.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        Buttons:
+                        <ul>
+                            {% for custButtons in button.customer.buttons%}
+                                <li>{{ custButtons.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                Produkt: {{ button.product.name }}
+                <ul>
+                    <li>ID: {{ button.product.id }}</li>
+                    <li>
+                        Buttons:
+                        <ul>
+                            {% for prodButtons in button.product.buttons%}
+                                <li>{{ prodButtons.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <hr>
+    {% endfor %}
+{% endblock %}

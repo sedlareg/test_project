@@ -25,13 +25,13 @@ class Button
 
     /**
      * @var Customer
-     * @ORM\ManyToOne(targetEntity="Customer")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="buttons", fetch="EXTRA_LAZY")
      */
     private $customer;
 
     /**
      * @var Product
-     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="buttons", fetch="EXTRA_LAZY")
      */
     private $product;
 
