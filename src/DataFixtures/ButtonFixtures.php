@@ -18,7 +18,7 @@ class ButtonFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         // create 100 buttons! Bam!
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
             $element = new Button();
             $element->setName('Button '.($i + 1));
 
